@@ -7,4 +7,3 @@ Rodar apenas o arquivo main.py
 
 Importar os comandos do arquivo "Comandos.postman_collection.json" para o seu postman
 
-Novas funcionalidades serão adicionadas futuramente.
