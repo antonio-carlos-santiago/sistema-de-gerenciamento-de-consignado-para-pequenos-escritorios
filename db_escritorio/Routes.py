@@ -45,7 +45,7 @@ def dadoscliente(cpf):
     return status
 
 
-@app.route("/statuscliente", methods=['post'])
+@app.route("/statuscliente", methods=['PATCH'])
 def alterarstatus():
     response = request.get_json()
     status = statuscliente(response)
