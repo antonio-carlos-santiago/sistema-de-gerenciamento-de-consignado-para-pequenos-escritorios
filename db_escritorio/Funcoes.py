@@ -137,7 +137,7 @@ def finalizarrelatoriogeral():
 
 
 def getdados(response):
-    cliente = Clientes.query.filter_by(telefone_cliente=response['telefone_cliente']).first()
+    cliente = Clientes.query.filter_by(cpf_cliente=response).first()
     if cliente:
         conv = Convenios.query.filter_by(cpf_convenio=cliente.cpf_cliente).all()
         return {"nome_cliente": cliente.nome_cliente, "cpf_cliente": cliente.cpf_cliente,

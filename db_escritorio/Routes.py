@@ -39,11 +39,9 @@ def verificarrelatorio():
     status = relatoriodisponivel()
     return status
 
-
-@app.route("/dadoscliente", methods=["POST"])
-def dadoscliente():
-    response = request.get_json()
-    status = getdados(response)
+@app.route("/dadoscliente/<cpf>", methods=["GET"])
+def dadoscliente(cpf):
+    status = getdados(int(cpf))
     return status
 
 
