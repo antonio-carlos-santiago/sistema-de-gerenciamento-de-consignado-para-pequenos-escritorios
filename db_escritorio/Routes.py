@@ -8,7 +8,6 @@ from db_escritorio.Funcoes import registrarclient, registrarconvenio, registrarc
 @app.route("/importar", methods=["POST"])
 def importclient():
     response = request.get_json()
-    print(response, "response ok")
     status_cliente = registrarclient(response)
     status_convenio = registrarconvenio(response)
     status_contrato = registrarcontrato(response)
