@@ -6,7 +6,7 @@ from datetime import datetime
 
 def registrarclient(response):
     print("chegou em registrar cliente")
-    buscaclciente = Clientes.query.filter_by(cpf_cliente=response["cpf"]).first()
+    buscaclciente = Clientes.query.filter_by(cpf_cliente=int(response["cpf"])).first()
     if not buscaclciente:
         novocliente = Clientes(cpf_cliente=response["cpf"], nome_cliente=response["nome"],
                                dt_nascimento_cliente=response["dt_nascimento"], sexo_cliente=response["sexo"],
