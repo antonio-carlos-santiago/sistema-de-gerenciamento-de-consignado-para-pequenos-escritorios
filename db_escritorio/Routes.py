@@ -5,7 +5,7 @@ from db_escritorio.Funcoes import registrarclient, registrarconvenio, registrarc
     novostatuscontrato, relatoriodisponivel, getdados, statuscliente
 
 
-@app.route("/importar", methods=["post", "get"])
+@app.route("/importar", methods=["POST"])
 def importclient():
     response = request.get_json()
     status_cliente = registrarclient(response)
@@ -14,20 +14,20 @@ def importclient():
     return {"status cliente": status_cliente, "status convenio": status_convenio, "status contrato": status_contrato}
 
 
-@app.route("/banco", methods=["get"])
+@app.route("/banco", methods=["GET"])
 def criarbanco():
     with app.app_context():
         database.create_all()
     return {"status": "work"}
 
 
-@app.route("/andamento", methods=["get"])
+@app.route("/andamento", methods=["GET"])
 def andamentos():
     contratos = vertodosandamentos()
     return contratos
 
 
-@app.route("/statuscontrato", methods=["post"])
+@app.route("/statuscontrato", methods=["POST"])
 def statuscontrato():
     response = request.get_json()
     status = novostatuscontrato(response)
