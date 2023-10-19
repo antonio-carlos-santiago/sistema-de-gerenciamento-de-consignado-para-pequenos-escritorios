@@ -1,17 +1,19 @@
-from db_escritorio.Models import Clientes, Convenios, Contratos, Relatorio
-from db_escritorio import database, app
-import json
 from datetime import datetime
+
+from db_escritorio import database
+from db_escritorio.Models import Clientes, Convenios, Contratos, Relatorio
 
 
 def registrarclient(response):
-    print("chegou em registrar cliente")
+    print(response["cpf"])
     buscaclciente = Clientes.query.filter_by(cpf_cliente=int(response["cpf"])).first()
     print(type(buscaclciente))
     if not buscaclciente:
-        novocliente = Clientes(cpf_cliente=response["cpf"], nome_cliente=response["nome"],
+        novocliente = Clientes(cpf_cliente=int(response["cpf"]), nome_cliente=response["nome"],
                                dt_nascimento_cliente=response["dt_nascimento"], sexo_cliente=response["sexo"],
                                telefone_cliente=response["telefone"])
+
+        print(novocliente)
 
         database.session.add(novocliente)
         database.session.commit()
@@ -86,7 +88,8 @@ def vertodosandamentos():
                                   "nome_cliente": contrato.clientes.nome_cliente,
                                   "dt_nascimento_cliente": contrato.clientes.dt_nascimento_cliente,
                                   "sexo_cliente": contrato.clientes.sexo_cliente,
-                                  "telefone_cliente": contrato.clientes.telefone_cliente,
+                                  "telefone_cliente": contrato.clientes.
+                                 telefone_cliente,
                                   "status_cliente": contrato.clientes.status_cliente,
                                   "data_registro_cliente": contrato.clientes.data_registro_cliente})
     return listacontrato
@@ -113,7 +116,6 @@ def novostatuscontrato(response):
             database.session.add(novorelatorio)
             database.session.commit()
 
-
         return {"status": "status atualizado com sucesso"}
     else:
         return {"status": "contrato não encontrado"}
@@ -139,7 +141,8 @@ def finalizarrelatoriogeral():
 
 
 def getdados(response):
-    cliente = Clientes.query.filter_by(cpf_cliente=response).first()
+    cliente = Clientes.query.filter_by(cpf_cliente=int(response)).first()
+    print(cliente)
     if cliente:
         conv = Convenios.query.filter_by(cpf_convenio=cliente.cpf_cliente).all()
         return {"nome_cliente": cliente.nome_cliente, "cpf_cliente": cliente.cpf_cliente,

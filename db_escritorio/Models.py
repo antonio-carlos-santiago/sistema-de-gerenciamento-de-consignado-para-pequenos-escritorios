@@ -1,24 +1,29 @@
-from db_escritorio import database
 from datetime import datetime
 
+from sqlalchemy import Integer, String, Boolean, Numeric, DateTime, ForeignKey
+from sqlalchemy.orm import Mapped, mapped_column
+
+from db_escritorio import database
+
+
 class Clientes(database.Model):
-    id_cliente = database.Column(database.Integer, primary_key=True)
-    cpf_cliente = database.Column(database.Integer, unique=True, nullable=False)
-    nome_cliente = database.Column(database.String, nullable=False)
-    dt_nascimento_cliente = database.Column(database.String, nullable=False)
-    sexo_cliente = database.Column(database.String, nullable=False)
-    telefone_cliente = database.Column(database.String, nullable=False)
-    status_cliente = database.Column(database.Boolean, nullable=False, default=True)
-    data_registro_cliente = database.Column(database.DateTime, default=datetime.utcnow)
+    id_cliente: Mapped[int] = mapped_column(Integer, primary_key=True)
+    cpf_cliente: Mapped[int] = mapped_column(Numeric, unique=True, nullable=False)
+    nome_cliente: Mapped[str] = mapped_column(String, nullable=False)
+    dt_nascimento_cliente: Mapped[str] = mapped_column(String, nullable=False)
+    sexo_cliente: Mapped[str] = mapped_column(String, nullable=False)
+    telefone_cliente: Mapped[str] = mapped_column(String, nullable=False)
+    status_cliente: Mapped[bool] = mapped_column(Boolean, nullable=False, default=True)
+    data_registro_cliente: Mapped[str] = mapped_column(DateTime, default=datetime.utcnow)
 
 
 class Convenios(database.Model):
-    id_convenio = database.Column(database.Integer, primary_key=True)
-    matricula_convenio = database.Column(database.String, nullable=False, unique=True)
-    cpf_convenio = database.Column(database.Integer, nullable=False)
-    nome_convenio = database.Column(database.String, nullable=False)
-    tipo_convenio = database.Column(database.String, nullable=False)
-    id_cliente = database.Column(database.Integer, database.ForeignKey('clientes.id_cliente'))
+    id_convenio: Mapped[int] = mapped_column(Integer, primary_key=True)
+    matricula_convenio: Mapped[str] = mapped_column(String, nullable=False, unique=True)
+    cpf_convenio: Mapped[int] = mapped_column(Numeric, nullable=False)
+    nome_convenio: Mapped[str] = mapped_column(String, nullable=False)
+    tipo_convenio: Mapped[str] = mapped_column(String, nullable=False)
+    id_cliente: Mapped[int] = mapped_column(Integer, ForeignKey('clientes.id_cliente'))
     clientes = database.relationship("Clientes", backref='convenios')
 
 
@@ -30,7 +35,7 @@ class Contratos(database.Model):
     prazo_contrato = database.Column(database.Integer, nullable=False)
     liquido_contrato = database.Column(database.Float, nullable=False)
     bruto_contrato = database.Column(database.Float, nullable=False)
-    modalidade_contrato = database.Column(database.String, nullable=False) # Se é novo/refin
+    modalidade_contrato = database.Column(database.String, nullable=False)  # Se é novo/refin
     tabela_contrato = database.Column(database.String, nullable=False)
     convenio_contrato = database.Column(database.String, nullable=False)
     matricula_contrato = database.Column(database.String, nullable=False)
@@ -65,4 +70,3 @@ class Relatorio(database.Model):
     data_finalizado_relatorio = database.Column(database.DateTime)
     id_cliente = database.Column(database.Integer, database.ForeignKey("clientes.id_cliente"))
     clientes = database.relationship("Clientes", backref="relatorio")
-
