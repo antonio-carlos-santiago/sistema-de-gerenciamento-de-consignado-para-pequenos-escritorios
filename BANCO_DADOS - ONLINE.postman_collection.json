@@ -1,32 +1,11 @@
 {
 	"info": {
-		"_postman_id": "892d77f1-4828-4f9b-b942-e422d2464574",
-		"name": "BANCO DADOS ESCRITORIO",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "43df72aa-ad9a-4e88-8026-788cdc67cd44",
+		"name": "BANCO_DADOS - ONLINE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26783413"
 	},
 	"item": [
-		{
-			"name": "BANCO DE DADOS",
-			"item": [
-				{
-					"name": "Criar Banco",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{endpoint}}/banco",
-							"host": [
-								"{{endpoint}}"
-							],
-							"path": [
-								"banco"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
 		{
 			"name": "CONTRATOS",
 			"item": [
@@ -37,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"cpf\": \"12345687912\",\r\n    \"nome\": \"ANTONIO CARLOS LIMA\",\r\n    \"dt_nascimento\": \"03-10-1996\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"telefone\": \"92984404584\",\r\n    \"matricula\": \"12345676\",\r\n    \"convenio\": \"GOVERNO AMAZONAS (APOSENTADO)\",\r\n    \"senha\": \"1234567890\",\r\n    \"tiposerv\": \"ESTATUTARIO\",\r\n    \"contrato\": \"1234579\",\r\n    \"banco\": \"PANAMERICANO\",\r\n    \"parcela\": \"12505\",\r\n    \"prazo\": \"96\",\r\n    \"liquido\": \"20000\",\r\n    \"bruto\": \"50000\",\r\n    \"modalidade\": \"NOVO\",\r\n    \"tabela\": \"NORMAL\",\r\n    \"origem\": \"FRANCISCO\",\r\n    \"promotora\": \"BEVICREDI\",\r\n    \"digitador\": \"DIEGO PASSOS\"    \r\n}",
+							"raw": "{\r\n    \"cpf\": \"05303617361\",\r\n    \"nome\": \"ANTONIO CARLOS SANTIAGO PERRONE\",\r\n    \"dt_nascimento\": \"03-10-1996\",\r\n    \"sexo\": \"MASCULINO\",\r\n    \"telefone\": \"92984404584\",\r\n    \"matricula\": \"12345676\",\r\n    \"convenio\": \"GOVERNO AMAZONAS (APOSENTADO)\",\r\n    \"senha\": \"1234567890\",\r\n    \"tiposerv\": \"ESTATUTARIO\",\r\n    \"contrato\": \"1234579\",\r\n    \"banco\": \"PANAMERICANO\",\r\n    \"parcela\": \"12505\",\r\n    \"prazo\": \"96\",\r\n    \"liquido\": \"20000\",\r\n    \"bruto\": \"50000\",\r\n    \"modalidade\": \"NOVO\",\r\n    \"tabela\": \"NORMAL\",\r\n    \"origem\": \"FRANCISCO\",\r\n    \"promotora\": \"BEVICREDI\",\r\n    \"digitador\": \"DIEGO PASSOS\"    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -76,11 +55,11 @@
 				{
 					"name": "Alterar Status Contrato",
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"id_contrato\": 1,\r\n    \"status_contrato\": \"PAGO\"\r\n}",
+							"raw": "{\r\n    \"numero_contrato\": 1234579,\r\n    \"status_contrato\": \"PAGO\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -106,12 +85,15 @@
 			"item": [
 				{
 					"name": "Pegar Perfil Cliente",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"telefone_cliente\": \"559281519266\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -119,12 +101,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{endpoint}}/dadoscliente",
+							"raw": "{{endpoint}}/dadoscliente/05303617360",
 							"host": [
 								"{{endpoint}}"
 							],
 							"path": [
-								"dadoscliente"
+								"dadoscliente",
+								"05303617360"
 							]
 						}
 					},
@@ -133,7 +116,7 @@
 				{
 					"name": "ALTERAR STATUS CLIENTE",
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -204,7 +187,7 @@
 	"variable": [
 		{
 			"key": "endpoint",
-			"value": "http://127.0.0.1:5001",
+			"value": "https://primeira-api.onrender.com",
 			"type": "default"
 		}
 	]

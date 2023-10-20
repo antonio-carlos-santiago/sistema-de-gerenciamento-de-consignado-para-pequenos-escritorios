@@ -5,15 +5,11 @@ from db_escritorio.Models import Clientes, Convenios, Contratos, Relatorio
 
 
 def registrarclient(response):
-    print(response["cpf"])
     buscaclciente = Clientes.query.filter_by(cpf_cliente=int(response["cpf"])).first()
-    print(type(buscaclciente))
     if not buscaclciente:
         novocliente = Clientes(cpf_cliente=int(response["cpf"]), nome_cliente=response["nome"],
                                dt_nascimento_cliente=response["dt_nascimento"], sexo_cliente=response["sexo"],
                                telefone_cliente=response["telefone"])
-
-        print(novocliente)
 
         database.session.add(novocliente)
         database.session.commit()
@@ -142,7 +138,6 @@ def finalizarrelatoriogeral():
 
 def getdados(response):
     cliente = Clientes.query.filter_by(cpf_cliente=int(response)).first()
-    print(cliente)
     if cliente:
         conv = Convenios.query.filter_by(cpf_convenio=cliente.cpf_cliente).all()
         return {"nome_cliente": cliente.nome_cliente, "cpf_cliente": cliente.cpf_cliente,
