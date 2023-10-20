@@ -96,7 +96,7 @@ def vertodosandamentos():
 
 
 def novostatuscontrato(response):
-    contrato = Contratos.query.filter_by(id_contrato=response["id_contrato"]).first()
+    contrato = Contratos.query.filter_by(numero_contrato=response["numero_contrato"]).first()
     if contrato:
         contrato.status_contrato = response["status_contrato"]
         contrato.data_pagamento_contrato = datetime.utcnow()

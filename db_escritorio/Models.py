@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import Integer, String, Boolean, Numeric, DateTime, ForeignKey
+from sqlalchemy import Integer, String, Boolean, Numeric, DateTime, ForeignKey, Float
 from sqlalchemy.orm import Mapped, mapped_column
 
 from db_escritorio import database
@@ -28,45 +28,45 @@ class Convenios(database.Model):
 
 
 class Contratos(database.Model):
-    id_contrato = database.Column(database.Integer, primary_key=True)
-    numero_contrato = database.Column(database.Integer, nullable=False, unique=True)
-    banco_contrato = database.Column(database.String, nullable=False)
-    parcela_contrato = database.Column(database.Float, nullable=False)
-    prazo_contrato = database.Column(database.Integer, nullable=False)
-    liquido_contrato = database.Column(database.Float, nullable=False)
-    bruto_contrato = database.Column(database.Float, nullable=False)
-    modalidade_contrato = database.Column(database.String, nullable=False)  # Se é novo/refin
-    tabela_contrato = database.Column(database.String, nullable=False)
-    convenio_contrato = database.Column(database.String, nullable=False)
-    matricula_contrato = database.Column(database.String, nullable=False)
-    tipo_contrato = database.Column(database.String, nullable=False)
-    senha_contrato = database.Column(database.String, nullable=False)
-    origem_contrato = database.Column(database.String, nullable=False)
-    status_contrato = database.Column(database.String, nullable=False, default="ANDAMENTO")
-    data_origem_contrato = database.Column(database.DateTime, default=datetime.utcnow)
-    pagamento_contrato = database.Column(database.Boolean, nullable=False, default=False)
-    data_pagamento_contrato = database.Column(database.DateTime)
-    promotora_contrato = database.Column(database.String, nullable=False)
-    digitador_contrato = database.Column(database.String, nullable=False)
-    relatorio_status = database.Column(database.Boolean, nullable=False, default=False)
-    id_cliente = database.Column(database.Integer, database.ForeignKey('clientes.id_cliente'))
+    id_contrato: Mapped[int] = mapped_column(Integer, primary_key=True)
+    numero_contrato: Mapped[int] = mapped_column(Integer, nullable=False, unique=True)
+    banco_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    parcela_contrato: Mapped[float] = mapped_column(Float, nullable=False)
+    prazo_contrato: Mapped[int] = mapped_column(Integer, nullable=False)
+    liquido_contrato: Mapped[float] = mapped_column(Float, nullable=False)
+    bruto_contrato: Mapped[float] = mapped_column(Float, nullable=False)
+    modalidade_contrato: Mapped[str] = mapped_column(String, nullable=False)  # Se é novo/refin
+    tabela_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    convenio_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    matricula_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    tipo_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    senha_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    origem_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    status_contrato: Mapped[str] = mapped_column(String, nullable=False, default="ANDAMENTO")
+    data_origem_contrato: Mapped[str] = mapped_column(DateTime, default=datetime.utcnow)
+    pagamento_contrato: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    data_pagamento_contrato: Mapped[int] = mapped_column(DateTime, nullable=True)
+    promotora_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    digitador_contrato: Mapped[str] = mapped_column(String, nullable=False)
+    relatorio_status: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    id_cliente: Mapped[int] = mapped_column(Integer, ForeignKey('clientes.id_cliente'))
     clientes = database.relationship("Clientes", backref='contratos')
 
 
 class Relatorio(database.Model):
-    id_relatorio = database.Column(database.Integer, primary_key=True)
-    numero_relatorio = database.Column(database.Integer, nullable=False, unique=True)
-    banco_relatorio = database.Column(database.String, nullable=False)
-    parcela_relatorio = database.Column(database.Float, nullable=False)
-    prazo_relatorio = database.Column(database.Integer, nullable=False)
-    liquido_relatorio = database.Column(database.Float, nullable=False)
-    modalidade_relatorio = database.Column(database.String, nullable=False)  # Se é novo/refin
-    tabela_relatorio = database.Column(database.String, nullable=False)
-    convenio_relatorio = database.Column(database.String, nullable=False)
-    origem_relatorio = database.Column(database.String, nullable=False)
-    status_relatorio = database.Column(database.String, nullable=False, default="EM ABERTO")
-    pagamento_relatorio = database.Column(database.Boolean, nullable=False, default=False)
-    data_gerada_relatorio = database.Column(database.DateTime, default=datetime.utcnow)
-    data_finalizado_relatorio = database.Column(database.DateTime)
-    id_cliente = database.Column(database.Integer, database.ForeignKey("clientes.id_cliente"))
+    id_relatorio: Mapped[int] = mapped_column(Integer, primary_key=True)
+    numero_relatorio: Mapped[int] = mapped_column(Integer, nullable=False, unique=True)
+    banco_relatorio: Mapped[str] = mapped_column(String, nullable=False)
+    parcela_relatorio: Mapped[float] = mapped_column(Float, nullable=False)
+    prazo_relatorio: Mapped[int] = mapped_column(Integer, nullable=False)
+    liquido_relatorio: Mapped[float] = mapped_column(Float, nullable=False)
+    modalidade_relatorio: Mapped[str] = mapped_column(String, nullable=False)  # Se é novo/refin
+    tabela_relatorio: Mapped[str] = mapped_column(String, nullable=False)
+    convenio_relatorio: Mapped[str] = mapped_column(String, nullable=False)
+    origem_relatorio: Mapped[str] = mapped_column(String, nullable=False)
+    status_relatorio: Mapped[str] = mapped_column(String, nullable=False, default="EM ABERTO")
+    pagamento_relatorio: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    data_gerada_relatorio: Mapped[str] = mapped_column(database.DateTime, default=datetime.utcnow)
+    data_finalizado_relatorio: Mapped[str] = mapped_column(database.DateTime, nullable=True)
+    id_cliente: Mapped[int] = mapped_column(Integer, ForeignKey("clientes.id_cliente"))
     clientes = database.relationship("Clientes", backref="relatorio")

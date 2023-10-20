@@ -26,7 +26,7 @@ def andamentos():
     return contratos
 
 
-@app.route("/statuscontrato", methods=["POST"])
+@app.route("/statuscontrato", methods=["PATCH"])
 def statuscontrato():
     response = request.get_json()
     status = novostatuscontrato(response)
